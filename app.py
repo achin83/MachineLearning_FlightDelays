@@ -8,6 +8,7 @@ import pickle
 import requests
 import json
 import pandas as pd
+from pprint import pprint
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
@@ -53,19 +54,28 @@ def upload_file():
             flight_data= prepare_csv(filepath)
             print(flight_data)
 
-            # Use the model to make a prediction
+            
+
+                # Use the model to make a prediction
             #for x in range(len(flight_data):
             
             predictions = []
  
             for x in range(len(flight_data)):
                 predictions.append({'Record Number:': x+1,
-                                    'Prediction:': int(model.predict(flight_data[x]))})
+                               'Value:': int(model.predict(flight_data)[x])})
             
-            print(predictions)
+            pprint(predictions)
+                
+            #flight_data["outcome"] = results
 
-            return jsonify(predictions)
+            # indicate that the request was a success
+            # data["success"] = True
 
+            #results_dict=results.to_dict('list')
+
+
+            return jsonify(predictions) 
     return '''
     <!doctype html>
     <title>Upload new File</title>
