@@ -53,28 +53,19 @@ def upload_file():
             flight_data= prepare_csv(filepath)
             print(flight_data)
 
-            
-
-                # Use the model to make a prediction
+            # Use the model to make a prediction
             #for x in range(len(flight_data):
             
-            results = []
+            predictions = []
  
             for x in range(len(flight_data)):
-                results.append({'Record Number:': x,
-                               'Value:': model.predict(flight_data)[x]})
+                predictions.append({'Record Number:': x+1,
+                                    'Prediction:': int(model.predict(flight_data[x]))})
             
-            print(results)
-                
-            #flight_data["outcome"] = results
+            print(predictions)
 
-            # indicate that the request was a success
-            # data["success"] = True
+            return jsonify(predictions)
 
-            #results_dict=results.to_dict('list')
-
-
-            return jsonify([{'Record Number:': 0, 'Value:': 1}, {'Record Number:': 1, 'Value:': 0}, {'Record Number:': 2, 'Value:': 0}, {'Record Number:': 3, 'Value:': 0}, {'Record Number:': 4, 'Value:': 0}])
     return '''
     <!doctype html>
     <title>Upload new File</title>
